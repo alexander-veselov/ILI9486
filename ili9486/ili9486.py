@@ -1,13 +1,30 @@
 import time
 import itertools
 import RPi.GPIO as GPIO
+from PIL import Image
+from spidev import SpiDev
 
 class ILI9486:
-    def __init__(self, spi, dc, rst, flip=True):
+    def __init__(self, spi: SpiDev, dc: int, rst: int, angle: int = 90, mirrored: bool = False):
         self.spi = spi
         self.dc = dc
         self.rst = rst
         self.size = (320, 480)
+        self.angle = angle
+        self.mirrored = mirrored
+        self.origin = {
+            (0,   False): 0x48,
+            (0,   True ): 0x08,
+            (90,  False): 0xE8,
+            (90,  True ): 0x68,
+            (180, False): 0x88,
+            (180, True ): 0xC8,
+            (270, False): 0x28,
+            (270, True ): 0xA8,
+        }[(angle, mirrored)]
+
+        if self.angle == 90 or self.angle == 270:
+            self.size = self.size[1], self.size[0]
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.dc, GPIO.OUT)
@@ -29,7 +46,7 @@ class ILI9486:
         self.command(0xE1); self.data([0x0F, 0x32, 0x2E, 0x0B, 0x0D, 0x05, 0x47, 0x75, 0x37, 0x06, 0x10, 0x03, 0x24, 0x20, 0x00], size=1)
         self.command(0x3A); self.data([0x66], size=1)
         self.command(0x11)
-        self.command(0x36); self.data([0xC8 if flip else 0x08], size=1)
+        self.command(0x36); self.data([self.origin], size=1)
         self.command(0xFF)
         self.command(0x29)
         self.command(0x2A); self.data([0, 0, self.size[0] >> 8, self.size[0] & 0xFF], size=1)
@@ -53,7 +70,7 @@ class ILI9486:
         GPIO.output(self.rst, GPIO.HIGH)
         time.sleep(.120)
 
-    def display(self, image):
+    def display(self, image: Image):
         if image.size != self.size:
             raise Exception("Image size doesn't match screen size")
         self.command(0x2C)
@@ -61,3 +78,9 @@ class ILI9486:
 
     def get_size(self):
         return self.size
+
+    def get_mirorred(self):
+        return self.mirrored
+
+    def get_angle(self):
+        return self.angle
