@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ili9486"
+version = "0.1.0"
+description = "ILI9486 Python driver for Raspberry Pi"
+dependencies = ["Pillow", "RPi.GPIO", "rpi-lgpio", "spidev"]
+authors = [{name = "Oleksandr Veselov"}]
+readme = "README.md"
+license = {file = "LICENSE"}
