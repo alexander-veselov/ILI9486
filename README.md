@@ -25,12 +25,13 @@ source ./venv/bin/activate
 pip3 install .
 ```
 
-# Examples
-You can find example here: [test.py](https://github.com/alexander-veselov/ILI9486/blob/main/examples/test.py)
+# Usage
+You can find usage example here: [test.py](https://github.com/alexander-veselov/ILI9486/blob/main/examples/test.py)
 ```bash
 # Make sure SPI is enabled and venv is activated
 python3 ./examples/test.py
 ```
+If the screen does not work, try changing the following ```SpiDev``` settings: ```max_speed_hz``` and ```mode```
 
 # Hardware
 - Tested on Raspberry Pi 5 only
@@ -38,10 +39,10 @@ python3 ./examples/test.py
 
 # Performance
 - ```test_fps``` shows ```5 FPS``` (see [test.py](https://github.com/alexander-veselov/ILI9486/blob/main/examples/test.py))
-- Performance could definitely be better, but I haven't found any way to improve it yet.
+- Performance could definitely be better, but I haven't found any way to improve it yet
 
 # Photos
-Note: In real life, the display has nice, rich colors without any artifacts. Artifacts present in photographs are camera distortions.
+Note: In real life, the display has nice, rich colors without any artifacts. Artifacts present in photographs are camera distortions
 <p align="center">
     <img width="49%" src="https://github.com/user-attachments/assets/316f455d-30e8-41d5-b90e-f619add96abc"/>
 &nbsp;
