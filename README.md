@@ -1,6 +1,6 @@
 # ILI9486
 
-[![last-commit](https://img.shields.io/github/last-commit/alexander-veselov/ILI9486)](https://github.com/alexander-veselov/ILI9486/commits/master/)
+[![last-commit](https://img.shields.io/github/last-commit/alexander-veselov/ILI9486)](https://github.com/alexander-veselov/ILI9486/commits/main/)
 
 ILI9486 Python driver for Raspberry Pi.
 
